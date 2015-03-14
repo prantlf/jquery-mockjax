@@ -102,6 +102,8 @@ checkout this list:
   * Returns an array of all mocked ajax calls with each entry being the request settings object as passed into the `$.mockjax()` function
 * `Array<Object> $.mockjax.unfiredHandlers()`
   * Returns an array of all mock handler settings that have not been used. In other words, if a handler has been used for a `$.ajax()` call then it will _not_ appear in this array
+* `Array<Object> $.mockjax.passedThroughAjaxCalls()`
+  * Returns an array of all pass-through Ajax calls that were made. The array contains the settings object passed into `$.ajax({...})`.  The pass-through calls are considered unmocked and the `$.mockjax.passedThroughAjaxCalls()` returns them too.
 * `Array<Object> $.mockjax.unmockedAjaxCalls()`
   * Returns an array of all unmocked Ajax calls that were made. The array contains the settings object passed into `$.ajax({...})`
 
@@ -596,6 +598,27 @@ Arguments of the `onAfter{Xxxxx}` callbacks are the same as those sent to
 their original jQuery counterparts.  The `onAfter{Xxxxx}` callbacks are
 called before the original jQuery success/error/complete callbacks, so that
 you have a chance to perform an action before the `$.ajax` caller.
+
+### Passing the Request Through and Modifying the Response  ###
+
+Sometimes it is useful not to create a full mock avoiding the server call
+completely.  If you need just to modify a server response, but otherwise
+reuse its contents, you can use the `passThrough` option.  The request
+will be made with the original settings and you can use one of the
+`onAfter{Xxxxx}` options and you can modify the response before the `$.ajax`
+caller receives it:
+
+```javascript
+mockjax({
+  url: "/api/end/point",
+  passThrough: true,
+  onAfterSuccess: function (response) {
+    // modify contents of the response object
+  }
+});
+```
+Arguments of the `onAfter{Xxxxx}` callbacks are the same as those sent to
+their original jQuery counterparts.
 
 ### Globally Defining Mockjax Settings ###
 

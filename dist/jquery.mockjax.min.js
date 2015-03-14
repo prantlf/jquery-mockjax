@@ -2,7 +2,7 @@
 * jquery.mockjax
 * 
 * Version: 2.0.0-beta 
-* Released: 2015-03-13 
+* Released: 2015-03-14 
 * Home: * https://github.com/jakerella/jquery-mockjax
 * Copyright (c) 2015 Jordan Kasper, formerly appendTo;
 * NOTE: This repository was taken over by Jordan Kasper (@jakerella) October, 2014
